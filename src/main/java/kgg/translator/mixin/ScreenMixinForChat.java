@@ -15,7 +15,9 @@ public class ScreenMixinForChat {
     @Redirect(method = "handleTextClick", at = @At(value = "INVOKE", target = "Lorg/slf4j/Logger;error(Ljava/lang/String;Ljava/lang/Object;)V", ordinal = 2, remap = false))
     public void error(org.slf4j.Logger instance, String s, Object o) {
         if (o instanceof ChatHandler.TranslateClickEvent event) {
-            ChatHandler.translateWithTip(event.text);
+            if (event.text != null) {
+                ChatHandler.translateWithTip(event.text);
+            }
         } else {
             instance.error(s, o);
         }

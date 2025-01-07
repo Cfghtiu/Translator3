@@ -33,9 +33,11 @@ public abstract class DrawContextMixinScreenText {
     public void drawText(TextRenderer textRenderer, OrderedText text, int x, int y, int color, boolean shadow, CallbackInfoReturnable<Integer> cir) {
         if (ScreenOption.screenTranslate.isEnable()) {
             if (!wrapped) {
-                int w = textRenderer.getWidth(text);
-                int h = textRenderer.fontHeight;
-                handle(textRenderer, List.of(text), x, y, w, h);
+                if (text != null) {
+                    int w = textRenderer.getWidth(text);
+                    int h = textRenderer.fontHeight;
+                    handle(textRenderer, List.of(text), x, y, w, h);
+                }
             }
         }
     }
