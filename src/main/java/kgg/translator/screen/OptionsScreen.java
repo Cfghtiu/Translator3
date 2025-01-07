@@ -15,11 +15,11 @@ public class OptionsScreen extends GameOptionsScreen {
         super(null, MinecraftClient.getInstance().options, Text.literal("翻译选项"));
     }
 
-    private static SimpleOption<Boolean> createOption(Option option) {
+    public static SimpleOption<Boolean> createOption(Option option) {
         return SimpleOption.ofBoolean("translator.option." + option.name, option.isEnable(), option::setEnable);
     }
 
-    private static SimpleOption<Boolean> createOptionAndTooltip(Option option) {
+    public static SimpleOption<Boolean> createOptionAndTooltip(Option option) {
         return SimpleOption.ofBoolean("translator.option." + option.name,
                 (b) -> Tooltip.of(Text.translatable("translator.option." + option.name + ".desc")),
                 option.isEnable(), option::setEnable);
