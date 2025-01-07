@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 负责翻译工具提示
  */
@@ -21,8 +23,8 @@ public class TipHandler {
 
     public static boolean drawTranslateText = false;  // 需要画翻译
     private static OrderedText[] translatedOrderedText;  // 翻译后的文本
-    private static int translatedTextCount;
-    private static int noTranslateCount;
+    private static AtomicInteger completedCount;
+    private static AtomicInteger untranslatedCount;
     private static List<Text> lastText;  // 上一次
     private static int time = 0;  // 时间
 
@@ -38,7 +40,7 @@ public class TipHandler {
                 time = Integer.MAX_VALUE;
                 if (translatedOrderedText == null) {
                     startTranslation(text);
-                } else if (translatedTextCount == text.size() && noTranslateCount != text.size()) {
+                } else if (completedCount.get() == text.size() && untranslatedCount.get() != text.size()) {
                     drawTranslateText = true;  // 有翻译内容
                 }
             } else {
@@ -50,15 +52,14 @@ public class TipHandler {
     private static void resetState(List<Text> text) {
         time = 0;
         lastText = text;
-        translatedTextCount = 0;
         translatedOrderedText = null;
         drawTranslateText = false;
     }
 
     private static void startTranslation(List<Text> texts) {
         OrderedText[] temp = translatedOrderedText = new OrderedText[texts.size()];
-        translatedTextCount = 0;
-        noTranslateCount = 0;
+        AtomicInteger completedCount1 = completedCount = new AtomicInteger(0);
+        AtomicInteger untranslatedCount1 = untranslatedCount = new AtomicInteger(0);
 
         for (int i = 0; i < texts.size(); i++) {
             Text text = texts.get(i);
@@ -78,9 +79,9 @@ public class TipHandler {
             }).thenApply(trans -> {
                 temp[finalI] = OrderedText.styledForwardsVisitedString(trans, text.getStyle());
                 if (StringUtil.equals(trans, string)) {
-                    noTranslateCount++;
+                    completedCount1.getAndIncrement();
                 }
-                translatedTextCount++;
+                untranslatedCount1.getAndIncrement();
                 return null;
             });
         }
