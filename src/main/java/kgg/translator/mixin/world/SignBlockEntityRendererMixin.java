@@ -1,7 +1,9 @@
 package kgg.translator.mixin.world;
 
-import kgg.translator.handler.SignHandler;
+import kgg.translator.handler.SignHelper;
+import kgg.translator.option.Options;
 import net.minecraft.block.entity.SignText;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -15,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SignBlockEntityRendererMixin {
     @Inject(method = "renderText", at = @At("HEAD"))
     public void renderText(BlockPos pos, SignText signText, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, int lineHeight, int lineWidth, boolean front, CallbackInfo ci) {
-        SignHandler.lineWidth = lineWidth;
+        SignHelper.lineWidth = lineWidth;
+        SignHelper.translate = Options.inRange(pos.toCenterPos());
     }
 }

@@ -1,7 +1,7 @@
 package kgg.translator.mixin;
 
 import kgg.translator.handler.TipHandler;
-import kgg.translator.option.ScreenOption;
+import kgg.translator.option.Options;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.tooltip.TooltipComponent;
@@ -36,21 +36,21 @@ public abstract class DrawContextMixinTooltip {
 
     @Inject(method = "drawTooltip(Lnet/minecraft/client/font/TextRenderer;Ljava/util/List;Ljava/util/Optional;IILnet/minecraft/util/Identifier;)V", at = @At("HEAD"))
     public void drawTooltip(TextRenderer textRenderer, List<Text> text, Optional<TooltipData> data, int x, int y, Identifier texture, CallbackInfo ci) {
-        if (ScreenOption.autoTooltip.isEnable()) {
+        if (Options.autoTooltip.getValue()) {
             TipHandler.handle((DrawContext) (Object) this, text, x, y, 0.4f);
         }
     }
 
     @Inject(method = "drawTooltip(Lnet/minecraft/client/font/TextRenderer;Ljava/util/List;II)V", at = @At("HEAD"))
     public void drawTooltip(TextRenderer textRenderer, List<Text> text, int x, int y, CallbackInfo ci) {
-        if (ScreenOption.autoTooltip.isEnable()) {
+        if (Options.autoTooltip.getValue()) {
             TipHandler.handle((DrawContext) (Object) this, text, x, y, 0.4f);
         }
     }
 
     @Inject(method = "drawTooltip(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;II)V", at = @At("RETURN"))
     public void drawTooltip(TextRenderer textRenderer, Text text, int x, int y, CallbackInfo ci) {
-        if (ScreenOption.autoTooltip.isEnable()) {
+        if (Options.autoTooltip.getValue()) {
             TipHandler.handle((DrawContext) (Object) this, List.of(text), x, y, 0.4f);
         }
     }

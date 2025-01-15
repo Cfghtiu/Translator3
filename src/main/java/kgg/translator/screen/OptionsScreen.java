@@ -1,41 +1,24 @@
 package kgg.translator.screen;
 
-import kgg.translator.option.Option;
-import kgg.translator.option.ScreenOption;
-import kgg.translator.option.WorldOption;
-import kgg.translator.option.ChatOption;
+import kgg.translator.option.Options;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
-import net.minecraft.client.gui.tooltip.Tooltip;
-import net.minecraft.client.option.SimpleOption;
 import net.minecraft.text.Text;
 
 public class OptionsScreen extends GameOptionsScreen {
     public OptionsScreen() {
-        super(null, MinecraftClient.getInstance().options, Text.literal("翻译选项"));
-    }
-
-    public static SimpleOption<Boolean> createOption(Option option) {
-        return SimpleOption.ofBoolean("translator.option." + option.name, option.isEnable(), option::setEnable);
-    }
-
-    public static SimpleOption<Boolean> createOptionAndTooltip(Option option) {
-        return SimpleOption.ofBoolean("translator.option." + option.name,
-                (b) -> Tooltip.of(Text.translatable("translator.option." + option.name + ".desc")),
-                option.isEnable(), option::setEnable);
+        super(null, MinecraftClient.getInstance().options, Text.translatable("translator.optionscreen.title"));
     }
 
     @Override
     protected void addOptions() {
-        this.body.addAll(createOption(ChatOption.autoChat),
-                createOption(ChatOption.chatTip),
-                createOptionAndTooltip(ScreenOption.autoTitle),
-                createOption(ScreenOption.autoScoreboard),
-                createOption(ScreenOption.autoBossBar),
-                createOptionAndTooltip(ScreenOption.autoTooltip),
-                createOption(WorldOption.autoEntityName),
-                createOption(WorldOption.autoSign),
-                createOptionAndTooltip(ScreenOption.screenTranslate),
-                createOptionAndTooltip(WorldOption.signCombine));
+        this.body.addAll(
+                Options.autoChat, Options.chatTip,
+                Options.autoTooltip, Options.autoScoreboard,
+                Options.autoBossBar, Options.autoTitle,
+                Options.autoSign, Options.signCombine,
+                Options.autoEntityName, Options.distance,
+                Options.autoPlayerName
+        );
     }
 }

@@ -1,7 +1,7 @@
 package kgg.translator.handler;
 
 import kgg.translator.TranslatorManager;
-import kgg.translator.option.ChatOption;
+import kgg.translator.option.Options;
 import kgg.translator.util.StringUtil;
 import kgg.translator.util.TextUtil;
 import net.minecraft.client.MinecraftClient;
@@ -27,7 +27,7 @@ public class ChatHandler {
     }
 
     public static void addTip() {
-        if (!ChatOption.chatTip.isEnable()) {  // 添加翻译提示
+        if (!Options.chatTip.getValue()) {  // 添加翻译提示
             return;
         }
         for (ChatHudLine message : MinecraftClient.getInstance().inGameHud.getChatHud().messages) {
@@ -70,9 +70,9 @@ public class ChatHandler {
 
     public static void handleNewMessage(Text text) {
         MutableText initText = initText(text);
-        if (ChatOption.autoChat.isEnable()) {  // 如果是自动翻译则处理
+        if (Options.autoChat.getValue()) {  // 如果是自动翻译则处理
             translate(initText);
-        } else if (ChatOption.chatTip.isEnable()) {
+        } else if (Options.chatTip.getValue()) {
             if (MinecraftClient.getInstance().currentScreen instanceof ChatScreen) {
                 addTip(initText);  // 如果在聊天框内，则添加翻译按钮
             }

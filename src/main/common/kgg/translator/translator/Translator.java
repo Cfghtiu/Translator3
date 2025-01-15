@@ -1,6 +1,7 @@
 package kgg.translator.translator;
 
 import com.google.gson.JsonObject;
+import kgg.translator.TranslatorConfig;
 import kgg.translator.command.CommandConfigurable;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.ocrtrans.ResRegion;
@@ -27,6 +28,7 @@ public abstract class Translator implements CommandConfigurable {
     }
 
     public void setConfigured() {
+        TranslatorConfig.writeFile();
         setConfigured(true);
     }
 

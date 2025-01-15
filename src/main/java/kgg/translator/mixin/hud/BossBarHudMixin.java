@@ -1,7 +1,7 @@
 package kgg.translator.mixin.hud;
 
-import kgg.translator.option.ScreenOption;
 import kgg.translator.handler.TranslateHelper;
+import kgg.translator.option.Options;
 import net.minecraft.client.gui.hud.BossBarHud;
 import net.minecraft.client.gui.hud.ClientBossBar;
 import net.minecraft.text.Text;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class BossBarHudMixin {
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/ClientBossBar;getName()Lnet/minecraft/text/Text;"))
     public Text render(ClientBossBar instance) {
-        if (!ScreenOption.autoBossBar.isEnable()) return instance.getName();
+        if (!Options.autoBossBar.getValue()) return instance.getName();
         return TranslateHelper.translateNoWait(instance.getName());
     }
 }

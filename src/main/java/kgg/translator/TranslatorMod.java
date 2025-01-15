@@ -20,7 +20,6 @@ public class TranslatorMod implements ClientModInitializer {
             TranslateConfigCommand.register(dispatcher);
         });
 
-        Initializer.init();
         if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
             TranslatorManager.addTranslator(new BaiduTranslatorModMenuImpl());
             TranslatorManager.addTranslator(new YouDaoTranslatorModMenuImpl());

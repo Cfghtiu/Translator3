@@ -1,8 +1,8 @@
 package kgg.translator.mixin.world;
 
-import kgg.translator.handler.SignHandler;
+import kgg.translator.handler.SignHelper;
 import kgg.translator.handler.TranslateHelper;
-import kgg.translator.option.WorldOption;
+import kgg.translator.option.Options;
 import net.minecraft.block.entity.SignText;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
@@ -30,6 +30,8 @@ public abstract class SignTextMixin {
     private boolean signCombine = false;
     @Unique
     private boolean updated = false;
+    @Unique
+    private boolean translate;
 
     /**
      * @author KGG_Xing_Kong
@@ -43,7 +45,7 @@ public abstract class SignTextMixin {
         if (orderedMessages == null || filtered!= this.filtered) {
             this.filtered = filtered;
             orderedMessages = new OrderedText[4];
-            if (autoSign && !(MinecraftClient.getInstance().currentScreen instanceof AbstractSignEditScreen)) {
+            if (autoSign && !(MinecraftClient.getInstance().currentScreen instanceof AbstractSignEditScreen) && translate) {
                 if (signCombine) {
                     handleCombinedTranslation();
                 } else {
@@ -61,9 +63,10 @@ public abstract class SignTextMixin {
 
     @Unique
     private void updateFlags() {
-        if (autoSign!= WorldOption.autoSign.isEnable() || signCombine!= WorldOption.signCombine.isEnable()) {
-            autoSign = WorldOption.autoSign.isEnable();
-            signCombine = WorldOption.signCombine.isEnable();
+        if (autoSign!= Options.autoSign.getValue() || signCombine!= Options.signCombine.getValue() || translate != SignHelper.translate) {
+            autoSign = Options.autoSign.getValue();
+            signCombine = Options.signCombine.getValue();
+            translate = SignHelper.translate;
             updated = true;
         }
         if (updated) {
@@ -80,7 +83,7 @@ public abstract class SignTextMixin {
         }
         Text combinedMessage = TranslateHelper.translateNoWait(text, t -> updated = true);
 
-        List<OrderedText> list = MinecraftClient.getInstance().textRenderer.wrapLines(combinedMessage, SignHandler.lineWidth);
+        List<OrderedText> list = MinecraftClient.getInstance().textRenderer.wrapLines(combinedMessage, SignHelper.lineWidth);
         for (int i = 0; i < 4; ++i) {
             if (i < list.size()) {
                 orderedMessages[i] = list.get(i);

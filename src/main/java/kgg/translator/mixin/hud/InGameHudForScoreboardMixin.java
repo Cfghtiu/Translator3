@@ -1,8 +1,8 @@
 package kgg.translator.mixin.hud;
 
-import kgg.translator.option.ScreenOption;
 import kgg.translator.handler.TipHandler;
 import kgg.translator.handler.TranslateHelper;
+import kgg.translator.option.Options;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -58,7 +58,7 @@ public abstract class InGameHudForScoreboardMixin {
                     MutableText text3 = scoreboardEntry.formatted(numberFormat);
 
                     // 翻译
-                    if (ScreenOption.autoScoreboard.isEnable()) {
+                    if (Options.autoScoreboard.getValue()) {
                         text2 = (MutableText) TranslateHelper.translateNoWait(text2);
                     }
 //                    text3 = (MutableText) ScreenOptions.getTranslateText(text3);
@@ -71,8 +71,7 @@ public abstract class InGameHudForScoreboardMixin {
         Text text = objective.getDisplayName();
 
         // 翻译
-        if (ScreenOption.autoScoreboard.isEnable()) {
-
+        if (Options.autoScoreboard.getValue()) {
             text = TranslateHelper.translateNoWait(text);
         }
 

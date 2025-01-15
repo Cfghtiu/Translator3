@@ -1,7 +1,7 @@
 package kgg.translator;
 
 import com.google.gson.*;
-import kgg.translator.option.Option;
+import kgg.translator.option.OptionRegistry;
 import kgg.translator.util.ConfigUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -94,12 +94,11 @@ public class TranslatorConfig {
 
     private static boolean readOptions(JsonObject config) {
         try {
-            for (Option option : Option.getOptions()) {
-                JsonElement element = config.get(option.name);
-                if (element != null) {
-                    option.setEnable(element.getAsBoolean());
+            OptionRegistry.options.forEach((key, value) -> {
+                if (config.has(key)) {
+                    OptionRegistry.readJsonElement(value, config.get(key));
                 }
-            }
+            });
             LOGGER.info("Options read successfully");
             return true;
         } catch (Exception e) {
@@ -109,9 +108,9 @@ public class TranslatorConfig {
     }
 
     private static boolean writeOptions(JsonObject config) {
-        for (Option option : Option.getOptions()) {
-            config.addProperty(option.name, option.isEnable());
-        }
+        OptionRegistry.options.forEach((key, value) -> {
+            config.add(key, OptionRegistry.createJsonElement(value));
+        });
         return true;
     }
 }

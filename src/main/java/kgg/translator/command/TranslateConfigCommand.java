@@ -109,19 +109,19 @@ public class TranslateConfigCommand {
     }
 
     private static int queryLanguage(CommandContext<FabricClientCommandSource> context) {
-        Text message = Text.literal("当前从%s翻译成%s".formatted(TranslatorManager.getFrom(), TranslatorManager.getTo()));
+        Text message = Text.translatable("commands.transconfig.querylanguage", TranslatorManager.getFrom(), TranslatorManager.getTo());
         context.getSource().sendFeedback(message);
         return 0;
     }
 
     private static int queryTranslator(CommandContext<FabricClientCommandSource> context) {
         Translator translator = TranslatorManager.getCurrent();
-        Text message = Text.literal("当前使用的翻译器为%s".formatted(translator));
+        Text message = Text.translatable("commands.transconfig.querytranslator", translator);
         context.getSource().sendFeedback(message);
         if (translator.isConfigured()) {
-                message = Text.literal("%s已配置".formatted(translator)).withColor(0x00ff00);
+                message = Text.translatable("commands.transconfig.querytranslator.configed", translator).withColor(0x00ff00);
             } else {
-                message = Text.literal("%s未配置".formatted(translator)).withColor(0xff0000);
+                message = Text.translatable("commands.transconfig.querytranslator.unconfiged", translator).withColor(0xff0000);
             }
             context.getSource().sendFeedback(message);
         return 0;
