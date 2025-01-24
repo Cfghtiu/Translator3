@@ -80,9 +80,9 @@ public class TipHandler {
             }).thenApply(trans -> {
                 temp[finalI] = OrderedText.styledForwardsVisitedString(trans, text.getStyle());
                 if (StringUtil.equals(trans, string)) {
-                    completedCount1.getAndIncrement();
+                    untranslatedCount1.getAndIncrement();
                 }
-                untranslatedCount1.getAndIncrement();
+                completedCount1.getAndIncrement();
                 return null;
             });
         }
