@@ -1,0 +1,30 @@
+{
+  "regex": {
+    "zh_cn": "^[\\\\u4e00-\\\\u9fff0-9\\\\p{P}\\\\p{S}]+$",
+    "en_us": "^[a-zA-Z0-9\\p{P}\\\\p{S}]+$"
+  },
+  "translator": {
+    "百度翻译": {
+      "auto": "auto",
+      "zh_cn": "zh",
+      "en_us": "en",
+      "jp": "jp",
+      "kr": "kor",
+      "fr": "fra",
+      "de": "de",
+      "ru": "ru",
+      "pt": "pt"
+    },
+    "有道翻译": {
+      "auto": "auto",
+      "zh_cn": "zh-CHS",
+      "en_us": "en",
+      "jp": "ja",
+      "kr": "ko",
+      "fr": "fr",
+      "de": "de",
+      "ru": "ru",
+      "pt": "pt"
+    }
+  }
+}

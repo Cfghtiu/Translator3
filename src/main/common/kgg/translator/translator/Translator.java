@@ -5,7 +5,6 @@ import kgg.translator.TranslatorConfig;
 import kgg.translator.command.CommandConfigurable;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.ocrtrans.ResRegion;
-import kgg.translator.util.EasyProperties;
 import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.IOException;
@@ -20,7 +19,7 @@ public abstract class Translator implements CommandConfigurable {
         return translate(text, from, to);
     }
 
-    public String translate(String text, String from, String to) throws IOException {
+    protected String translate(String text, String from, String to) throws IOException {
         throw new NotImplementedException();
     };
 
@@ -41,10 +40,6 @@ public abstract class Translator implements CommandConfigurable {
 
     public void setConfigured(boolean configured) {
         this.configured = configured;
-    }
-
-    public EasyProperties getLanguageProperties() {
-        return null;
     }
 
     public abstract void read(JsonObject object);

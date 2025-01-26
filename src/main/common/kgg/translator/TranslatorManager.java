@@ -1,8 +1,5 @@
 package kgg.translator;
 
-import kgg.translator.exception.NoTranslatorException;
-import kgg.translator.exception.TranslateException;
-import kgg.translator.exception.NotConfiguredException;
 import kgg.translator.translator.Translator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,15 +22,15 @@ public class TranslatorManager {
     public static boolean setTranslator(Translator translator) {
         LOGGER.info("Set current translator to {}", translator);
         if (current != translator) {
-            if (current != null && translator.getLanguageProperties() != null && current.getLanguageProperties() != null) {
-                String originalFrom = current.getLanguageProperties().getKeysByValue(from);
-                String originalTo = current.getLanguageProperties().getKeysByValue(to);
-                if (originalFrom != null && originalTo != null) {
-                    String newFrom = translator.getLanguageProperties().getProperty(originalFrom);
-                    String newTo = translator.getLanguageProperties().getProperty(originalTo);
-                    if (newFrom != null && newTo != null) {
-                        setFrom(newFrom);
-                        setTo(newTo);
+            if (current != null && Language.translatorMap.containsKey(current.getName()) && Language.translatorMap.containsKey(translator.getName())) {
+                String leftFrom = Language.getLeftLang(current.getName(), from);
+                String leftTo = Language.getLeftLang(current.getName(), to);
+                if (leftFrom != null && leftTo != null) {
+                    String rightFrom = Language.translatorMap.get(translator.getName()).get(leftFrom);
+                    String rightTo = Language.translatorMap.get(translator.getName()).get(leftTo);
+                    if (rightFrom != null && rightTo != null) {
+                        setFrom(rightFrom);
+                        setTo(rightTo);
                         TranslatorManager.current = translator;
                         return true;
                     }

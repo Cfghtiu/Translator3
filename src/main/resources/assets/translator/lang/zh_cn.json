@@ -30,7 +30,15 @@
   "translator.option.auto_tooltip.desc": "打开后，当鼠标对着物品超过0.4秒后，会翻译物品信息",
   "translator.option.sign_combine.desc": "如果打开，会结合告示牌其他行进行翻译，翻译结果会更准，但有概率失去结尾内容\n如果关闭，则每行单独翻译，如果翻译结果大于原文，则会超出告示牌宽度",
 
-
+  "language.auto": "自动",
+  "language.zh_cn": "中文(简体)",
+  "language.en_us": "英语",
+  "language.jp": "日语",
+  "language.kr": "韩语",
+  "language.fr": "法语",
+  "language.de": "德语",
+  "language.ru": "俄语",
+  "language.pt": "葡萄牙语",
 
   "translator.error.baidu.52001": "请求超时，请重试",
   "translator.error.baidu.52002": "服务端系统错误，请重试",

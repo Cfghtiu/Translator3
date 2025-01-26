@@ -21,7 +21,7 @@ public abstract class YouDaoTranslator extends Translator {
     protected String appKey = "";
 
     @Override
-    public synchronized String translate(String text, String from, String to) throws IOException {
+    protected synchronized String translate(String text, String from, String to) throws IOException {
         return delay(800, () -> {
             Map<String, Object> params = buildParams(text, from, to);
             params.put("strict", "true");
@@ -93,19 +93,5 @@ public abstract class YouDaoTranslator extends Translator {
     public void write(JsonObject object) {
         object.addProperty("appKey", appId);
         object.addProperty("appSecret", appKey);
-    }
-
-    public static final EasyProperties LANGUAGES;
-    static {
-        try {
-            LANGUAGES = new EasyProperties(YouDaoTranslator.class.getClassLoader().getResourceAsStream("languages/youdao.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public EasyProperties getLanguageProperties() {
-        return LANGUAGES;
     }
 }

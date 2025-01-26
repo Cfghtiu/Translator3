@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import kgg.translator.exception.ErrorCodeException;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.ocrtrans.ResRegion;
-import kgg.translator.util.EasyProperties;
 import kgg.translator.util.RequestUtil;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public abstract class BaiduTranslator extends Translator {
     protected int delayTime = 1000;
 
     @Override
-    public synchronized String translate(String text, String from, String to) throws IOException {
+    protected synchronized String translate(String text, String from, String to) throws IOException {
         return delay(delayTime, () -> {
             String salt = String.valueOf(System.currentTimeMillis());
             Map<String, Object> params = Map.of(
@@ -116,21 +115,5 @@ public abstract class BaiduTranslator extends Translator {
         object.addProperty("appId", appId);
         object.addProperty("appKey", appKey);
         object.addProperty("delayTime", delayTime);
-    }
-
-    @Override
-    public EasyProperties getLanguageProperties() {
-        return LANGUAGES;
-    }
-
-
-    public static final EasyProperties LANGUAGES;
-
-    static {
-        try {
-            LANGUAGES = new EasyProperties(BaiduTranslator.class.getClassLoader().getResourceAsStream("languages/baidu.properties"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }

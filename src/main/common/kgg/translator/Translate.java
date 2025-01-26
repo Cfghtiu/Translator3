@@ -60,15 +60,11 @@ public class Translate {
     public static String translate(String text, Translator translator, String from, String to, String source) throws TranslateException {
         if (StringUtil.isBlank(text)) return text;
         if (StringUtils.isNumeric(text)) return text;
+        if (Language.getPredicate(to).test(text)) return text;
         checkTranslator(translator);
 
         try {
-            String translate;
-//            if (source == null) {
-//                translate = translator.translate(text, from, to);
-//            } else {
-                translate = translator.translate(text, from, to, source);
-//            }
+            String translate = translator.translate(text, from, to, source);;
             LOGGER.info("{} translate from {} to {}: ({})\"{}\" -> \"{}\"", translator, from, to, source, StringUtil.getOutString(text), StringUtil.getOutString(translate));
             return translate;
         } catch (Exception e) {

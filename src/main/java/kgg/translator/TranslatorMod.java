@@ -11,6 +11,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.loader.api.FabricLoader;
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 public class TranslatorMod implements ClientModInitializer {
     @Override
@@ -19,6 +23,12 @@ public class TranslatorMod implements ClientModInitializer {
             TranslateCommand.register(dispatcher);
             TranslateConfigCommand.register(dispatcher);
         });
+
+        try {
+            Language.load(IOUtils.toString(TranslatorMod.class.getClassLoader().getResourceAsStream("language.json"), StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         if (FabricLoader.getInstance().isModLoaded("cloth-config")) {
             TranslatorManager.addTranslator(new BaiduTranslatorModMenuImpl());
