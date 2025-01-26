@@ -3,6 +3,7 @@ package kgg.translator.mixin.hud;
 import kgg.translator.handler.TipHandler;
 import kgg.translator.handler.TranslateHelper;
 import kgg.translator.option.Options;
+import kgg.translator.translator.Source;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -59,7 +60,7 @@ public abstract class InGameHudForScoreboardMixin {
 
                     // 翻译
                     if (Options.autoScoreboard.getValue()) {
-                        text2 = (MutableText) TranslateHelper.translateNoWait(text2);
+                        text2 = (MutableText) TranslateHelper.translateNoWait(text2, Source.SCOREBOARD);
                     }
 //                    text3 = (MutableText) ScreenOptions.getTranslateText(text3);
 
@@ -72,7 +73,7 @@ public abstract class InGameHudForScoreboardMixin {
 
         // 翻译
         if (Options.autoScoreboard.getValue()) {
-            text = TranslateHelper.translateNoWait(text);
+            text = TranslateHelper.translateNoWait(text, Source.SCOREBOARD);
         }
 
         int textWidth = this.getTextRenderer().getWidth(text);

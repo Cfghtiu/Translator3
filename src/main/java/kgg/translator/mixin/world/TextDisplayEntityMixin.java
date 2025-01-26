@@ -2,6 +2,7 @@ package kgg.translator.mixin.world;
 
 import kgg.translator.handler.TranslateHelper;
 import kgg.translator.option.Options;
+import kgg.translator.translator.Source;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.decoration.DisplayEntity;
@@ -41,7 +42,7 @@ public abstract class TextDisplayEntityMixin extends DisplayEntity {
             if (translated && Options.inRange(getPos())){
                 text = TranslateHelper.translateNoWait(text, t -> {
                     updated = true;
-                });
+                }, Source.ENTITY_NAME);
             }
             return splitter.split(text, w);
         };

@@ -3,6 +3,7 @@ package kgg.translator.mixin.world;
 import kgg.translator.handler.SignHelper;
 import kgg.translator.handler.TranslateHelper;
 import kgg.translator.option.Options;
+import kgg.translator.translator.Source;
 import net.minecraft.block.entity.SignText;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.AbstractSignEditScreen;
@@ -81,7 +82,7 @@ public abstract class SignTextMixin {
         for (int i = 1; i < 4; ++i) {
             text.append(getMessage(i, filtered));
         }
-        Text combinedMessage = TranslateHelper.translateNoWait(text, t -> updated = true);
+        Text combinedMessage = TranslateHelper.translateNoWait(text, t -> updated = true, Source.SIGN);
 
         List<OrderedText> list = MinecraftClient.getInstance().textRenderer.wrapLines(combinedMessage, SignHelper.lineWidth);
         for (int i = 0; i < 4; ++i) {
@@ -97,7 +98,7 @@ public abstract class SignTextMixin {
     private void handleLineByLineTranslation() {
         for (int i = 0; i < 4; ++i) {
             Text message = getMessage(i, filtered);
-            message = TranslateHelper.translateNoWait(message, t -> updated = true);
+            message = TranslateHelper.translateNoWait(message, t -> updated = true, Source.SIGN);
             orderedMessages[i] = message.asOrderedText();
         }
     }

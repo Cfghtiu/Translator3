@@ -1,7 +1,9 @@
 package kgg.translator.handler;
 
+import kgg.translator.Translate;
 import kgg.translator.TranslatorManager;
 import kgg.translator.option.Options;
+import kgg.translator.translator.Source;
 import kgg.translator.util.StringUtil;
 import kgg.translator.util.TextUtil;
 import net.minecraft.client.MinecraftClient;
@@ -89,7 +91,7 @@ public class ChatHandler {
         translatingTexts.add(text);
         CompletableFuture.supplyAsync(() -> {
             try {
-                String result = TranslatorManager.cachedTranslate(s);
+                String result = Translate.cachedTranslate(s, Source.CHAT);
                 return createResultText(result, text);
             } catch (Exception e) {
                 return createErrorText(e.getMessage(), text, s);

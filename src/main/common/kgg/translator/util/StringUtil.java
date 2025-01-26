@@ -13,4 +13,10 @@ public class StringUtil {
         return strip(text1).replace(" ", "").replace("\n", "").equals(strip(text2).replace(" ", "").replace("\n", ""));
     }
 
+    public static String getOutString(String text) {
+        if (text.length() > 20) {
+            return text.substring(0, 20) + "...";
+        }
+        return text;
+    }
 }

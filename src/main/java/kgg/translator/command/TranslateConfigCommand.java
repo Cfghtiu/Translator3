@@ -7,6 +7,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
+import kgg.translator.Translate;
 import kgg.translator.TranslatorConfig;
 import kgg.translator.TranslatorManager;
 import kgg.translator.handler.TranslateHelper;
@@ -88,7 +89,7 @@ public class TranslateConfigCommand {
         // /trans-config clearcache
         root.then(ClientCommandManager.literal("clearcache")
                 .executes(context -> {
-                    TranslatorManager.clearCache();
+                    Translate.clearCache();
                     TranslateHelper.clearCache();
                     context.getSource().sendFeedback(Text.literal("OK"));
                     return 0;

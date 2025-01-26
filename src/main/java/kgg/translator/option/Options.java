@@ -42,4 +42,7 @@ public class Options {
     public static final SimpleOption<Boolean> autoPlayerName = registerBool("auto_player_name", false);
     public static final SimpleOption<Boolean> autoSign = registerBool("auto_sign", false);
     public static final SimpleOption<Boolean> signCombine = registerBoolWithTooltip("sign_combine", true);
+
+    // 内置
+    public static SimpleOption<Boolean> markSources = registerBoolWithTooltip("mark_sources", false);
 }

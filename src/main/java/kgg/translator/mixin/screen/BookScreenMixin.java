@@ -1,7 +1,8 @@
 package kgg.translator.mixin.screen;
 
-import kgg.translator.TranslatorManager;
+import kgg.translator.Translate;
 import kgg.translator.exception.TranslateException;
+import kgg.translator.translator.Source;
 import kgg.translator.util.TextUtil;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
@@ -46,7 +47,7 @@ public class BookScreenMixin extends Screen {
                     StringJoiner sb = new StringJoiner(" ");
                     cachedPage.forEach(text -> sb.add(TextUtil.getString(text)));
 
-                    translateText = TranslatorManager.cachedTranslate(sb.toString());
+                    translateText = Translate.cachedTranslate(sb.toString(), Source.BOOK);
                 } catch (TranslateException e) {
                     translateText = e.getMessage();
                 }

@@ -1,5 +1,6 @@
 package kgg.translator.handler;
 
+import kgg.translator.Translate;
 import kgg.translator.TranslatorManager;
 import kgg.translator.ocrtrans.ResRegion;
 import kgg.translator.screen.OcrScreen;
@@ -28,7 +29,7 @@ public class OcrHandler {
             byte[] bytes = getBytes(nativeImage);
             CompletableFuture.runAsync(() -> {
                 try {
-                    ResRegion[] ocrtrans = TranslatorManager.ocrtrans(bytes);
+                    ResRegion[] ocrtrans = Translate.ocrtrans(bytes);
                     // 每个区域进行缩放
                     ocrtrans = Arrays.stream(ocrtrans).map(resRegion -> {
                         return resRegion.scale(1 / client.getWindow().getScaleFactor());

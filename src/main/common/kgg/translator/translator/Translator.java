@@ -6,6 +6,7 @@ import kgg.translator.command.CommandConfigurable;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.ocrtrans.ResRegion;
 import kgg.translator.util.EasyProperties;
+import org.apache.commons.lang3.NotImplementedException;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +16,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public abstract class Translator implements CommandConfigurable {
     private boolean configured = false;  // 是否已经配置
 
-    public abstract String translate(String text, String from, String to) throws IOException;
+    public String translate(String text, String from, String to, String source) throws IOException {
+        return translate(text, from, to);
+    }
+
+    public String translate(String text, String from, String to) throws IOException {
+        throw new NotImplementedException();
+    };
 
     public ResRegion[] ocrtrans(byte[] img, String from, String to) throws IOException {
         throw new TranslateException(getName() + "不支持图片翻译");

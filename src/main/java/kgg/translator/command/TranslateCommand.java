@@ -3,8 +3,10 @@ package kgg.translator.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
+import kgg.translator.Translate;
 import kgg.translator.TranslatorManager;
 import kgg.translator.exception.TranslateException;
+import kgg.translator.translator.Source;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.client.MinecraftClient;
@@ -37,7 +39,7 @@ public class TranslateCommand {
         CompletableFuture.runAsync(() -> {
             Text message;
             try {
-                String result = TranslatorManager.translate(text, TranslatorManager.getCurrent(), from, to);
+                String result = Translate.translate(text, TranslatorManager.getCurrent(), from, to, Source.CHAT);
                 message = Text.literal("[结果] " +result).setStyle(Style.EMPTY
                         .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, result))
                         .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Text.literal("点击复制"))));

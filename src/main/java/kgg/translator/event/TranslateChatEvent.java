@@ -1,4 +1,4 @@
-package kgg.translator.api.event;
+package kgg.translator.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

@@ -1,6 +1,6 @@
 package kgg.translator.handler;
 
-import kgg.translator.TranslatorManager;
+import kgg.translator.Translate;
 import net.minecraft.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,19 +22,15 @@ public class TranslateHelper {
         }, CHECK_TIME, CHECK_TIME, TimeUnit.MILLISECONDS);
     }
 
-    public static Text translateNoWait(Text text) {
-        return translateNoWait(text, s -> {});
+    public static Text translateNoWait(Text text, String source) {
+        return translateNoWait(text, s -> {}, source);
     }
 
-    public static Text translateNoWait(Text text, Consumer<String> comparable) {
-        return Text.literal(translateNoWait(text.getString(), comparable)).fillStyle(text.getStyle());
+    public static Text translateNoWait(Text text, Consumer<String> comparable, String source) {
+        return Text.literal(translateNoWait(text.getString(), source, comparable)).fillStyle(text.getStyle());
     }
 
-    public static String translateNoWait(String text) {
-        return translateNoWait(text, s -> {});
-    }
-
-    public static String translateNoWait(String text, Consumer<String> comparable) {
+    public static String translateNoWait(String text, String source, Consumer<String> comparable) {
         // 检查此文本
         Long aLong = failedTextCache.get(text);
         if (aLong != null) {
@@ -45,7 +41,7 @@ public class TranslateHelper {
             }
         }
 
-        String cache = TranslatorManager.getFromCache(text);
+        String cache = Translate.getFromCache(text, source);
         if (cache != null) {
             return cache;
         }
@@ -56,7 +52,7 @@ public class TranslateHelper {
         translatingTexts.add(text);
         CompletableFuture.runAsync(() -> {
             try {
-                String s = TranslatorManager.cachedTranslate(text);
+                String s = Translate.cachedTranslate(text, source);
                 comparable.accept(s);
             } catch (Exception e) {
                 failedTextCache.put(text, System.currentTimeMillis());

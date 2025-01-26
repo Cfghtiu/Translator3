@@ -1,7 +1,9 @@
 package kgg.translator.handler;
 
+import kgg.translator.Translate;
 import kgg.translator.TranslatorManager;
 import kgg.translator.exception.TranslateException;
+import kgg.translator.translator.Source;
 import kgg.translator.util.StringUtil;
 import kgg.translator.util.TextUtil;
 import net.minecraft.client.MinecraftClient;
@@ -72,7 +74,7 @@ public class TipHandler {
                     return string;
                 }
                 try {
-                    return TranslatorManager.cachedTranslate(string);
+                    return Translate.cachedTranslate(string, Source.TOOLTIP);
                 } catch (TranslateException e) {
                     LOGGER.error("translate failed", e);
                     return string;
