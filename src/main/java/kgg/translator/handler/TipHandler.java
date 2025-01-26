@@ -66,7 +66,7 @@ public class TipHandler {
 
         for (int i = 0; i < texts.size(); i++) {
             Text text = texts.get(i);
-            String string = text.getString();
+            String string = TextUtil.getString(text);
             int finalI = i;
 
             CompletableFuture.supplyAsync(() -> {
@@ -80,7 +80,7 @@ public class TipHandler {
                     return string;
                 }
             }).thenApply(trans -> {
-                temp[finalI] = OrderedText.styledForwardsVisitedString(trans, text.getStyle());
+                temp[finalI] = TextUtil.toText(trans, text).asOrderedText();
                 if (StringUtil.equals(trans, string)) {
                     untranslatedCount1.getAndIncrement();
                 }

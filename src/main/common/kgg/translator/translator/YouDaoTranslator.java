@@ -7,7 +7,6 @@ import com.google.gson.JsonParser;
 import kgg.translator.exception.ErrorCodeException;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.ocrtrans.ResRegion;
-import kgg.translator.util.EasyProperties;
 import kgg.translator.util.RequestUtil;
 
 import java.io.IOException;

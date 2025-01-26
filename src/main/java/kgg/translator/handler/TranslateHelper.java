@@ -1,6 +1,7 @@
 package kgg.translator.handler;
 
 import kgg.translator.Translate;
+import kgg.translator.util.TextUtil;
 import net.minecraft.text.Text;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ public class TranslateHelper {
     }
 
     public static Text translateNoWait(Text text, Consumer<String> comparable, String source) {
-        return Text.literal(translateNoWait(text.getString(), source, comparable)).fillStyle(text.getStyle());
+        return TextUtil.toText(translateNoWait(TextUtil.getString(text), source, comparable), text);
     }
 
     public static String translateNoWait(String text, String source, Consumer<String> comparable) {

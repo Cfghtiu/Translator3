@@ -38,6 +38,14 @@ public class TextUtil {
         return false;
     }
 
+    public static Text toText(String text, Text origin) {
+        return Text.literal(text).fillStyle(origin.getStyle());
+    }
+
+    public static String getString(Text text) {  // 方便增强模组重写
+        return StringUtil.strip(text.getString());
+    }
+
     public static String getString(OrderedText text) {
         StringBuffer sb = new StringBuffer();
         text.accept((index, style, codePoint) -> {

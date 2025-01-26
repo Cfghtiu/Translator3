@@ -1,5 +1,6 @@
 package kgg.translator.screen;
 
+import kgg.translator.event.OptionsScreenAddBodyEvent;
 import kgg.translator.option.Options;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.option.GameOptionsScreen;
@@ -20,5 +21,6 @@ public class OptionsScreen extends GameOptionsScreen {
                 Options.autoEntityName, Options.distance,
                 Options.autoPlayerName
         );
+        OptionsScreenAddBodyEvent.EVENT.invoker().add(this.body);
     }
 }

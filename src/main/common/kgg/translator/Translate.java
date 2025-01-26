@@ -3,6 +3,7 @@ package kgg.translator;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import kgg.translator.event.TranslateEvent;
 import kgg.translator.exception.NoTranslatorException;
 import kgg.translator.exception.NotConfiguredException;
 import kgg.translator.exception.TranslateException;
@@ -64,7 +65,12 @@ public class Translate {
         checkTranslator(translator);
 
         try {
-            String translate = translator.translate(text, from, to, source);;
+            boolean begin = TranslateEvent.BEGIN.invoker().begin(text, from, to, source);
+            if (!begin) {
+                throw new TranslateException("未翻译");
+            }
+            String translate = translator.translate(text, from, to, source);
+            translate = TranslateEvent.AFTER.invoker().after(text, translate, from, to, source);
             LOGGER.info("{} translate from {} to {}: ({})\"{}\" -> \"{}\"", translator, from, to, source, StringUtil.getOutString(text), StringUtil.getOutString(translate));
             return translate;
         } catch (Exception e) {

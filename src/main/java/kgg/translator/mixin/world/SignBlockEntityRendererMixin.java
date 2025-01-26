@@ -3,7 +3,6 @@ package kgg.translator.mixin.world;
 import kgg.translator.handler.SignHelper;
 import kgg.translator.option.Options;
 import net.minecraft.block.entity.SignText;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.SignBlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;

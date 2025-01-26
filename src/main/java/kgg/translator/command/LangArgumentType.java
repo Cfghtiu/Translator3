@@ -8,7 +8,6 @@ import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
 import kgg.translator.Language;
 import kgg.translator.TranslatorManager;
-import kgg.translator.util.EasyProperties;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.minecraft.command.CommandSource;
 import net.minecraft.text.Text;

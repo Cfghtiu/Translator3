@@ -1,7 +1,6 @@
 package kgg.translator.handler;
 
 import kgg.translator.Translate;
-import kgg.translator.TranslatorManager;
 import kgg.translator.ocrtrans.ResRegion;
 import kgg.translator.screen.OcrScreen;
 import net.minecraft.client.MinecraftClient;
