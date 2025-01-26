@@ -1,7 +1,6 @@
 package kgg.translator.handler;
 
 import kgg.translator.Translate;
-import kgg.translator.TranslatorManager;
 import kgg.translator.exception.TranslateException;
 import kgg.translator.translator.Source;
 import kgg.translator.util.StringUtil;
@@ -31,6 +30,7 @@ public class TipHandler {
     private static List<Text> lastText;  // 上一次
     private static int time = 0;  // 时间
 
+    // todo 实时显示
     /**
      * 0.5秒后翻译文本
      */

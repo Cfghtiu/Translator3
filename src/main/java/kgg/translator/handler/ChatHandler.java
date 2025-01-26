@@ -1,7 +1,6 @@
 package kgg.translator.handler;
 
 import kgg.translator.Translate;
-import kgg.translator.TranslatorManager;
 import kgg.translator.option.Options;
 import kgg.translator.translator.Source;
 import kgg.translator.util.StringUtil;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+// todo 太丑了
 public class ChatHandler {
     private static final Logger LOGGER = LogManager.getLogger(ChatHandler.class);
 
