@@ -16,6 +16,16 @@
   "options.value.max": "无限",
 
   "translator.optionscreen.title": "翻译选项",
+  "translator.configscreen.title": "翻译配置",
+  "translator.configscreen.edit": "编辑",
+  "translator.configscreen.save": "保存",
+  "translator.configscreen.modmenu": "更方便的编辑",
+  "translator.modmenu.title": "翻译配置",
+  "translator.modmenu.current": "当前翻译器",
+  "translator.modmenu.from": "源语言",
+  "translator.modmenu.to": "目标语言",
+  "translator.modmenu.suggestion": "建议使用/transconfig language配置",
+
   "translator.option.chat_tip": "聊天翻译提示",
   "translator.option.auto_chat": "翻译聊天",
   "translator.option.auto_tooltip": "翻译物品",
